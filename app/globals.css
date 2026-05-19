@@ -1,0 +1,188 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 240 10% 4%;
+    --foreground: 0 0% 98%;
+    --card: 240 10% 6%;
+    --card-foreground: 0 0% 98%;
+    --popover: 240 10% 6%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 186 100% 50%;
+    --primary-foreground: 240 10% 4%;
+    --secondary: 240 10% 12%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 240 10% 12%;
+    --muted-foreground: 240 5% 65%;
+    --accent: 186 100% 50%;
+    --accent-foreground: 240 10% 4%;
+    --destructive: 348 100% 50%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 240 10% 15%;
+    --input: 240 10% 15%;
+    --ring: 186 100% 50%;
+    --radius: 0.75rem;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-cyber-black text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+@layer utilities {
+  .text-glow {
+    text-shadow: 0 0 10px currentColor, 0 0 20px currentColor, 0 0 40px currentColor;
+  }
+
+  .cyber-border {
+    position: relative;
+  }
+
+  .cyber-border::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(135deg, rgba(0, 240, 255, 0.5), rgba(112, 0, 255, 0.5), rgba(255, 0, 160, 0.5));
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+  }
+
+  .glass-panel {
+    background: rgba(19, 19, 31, 0.7);
+    backdrop-filter: blur(20px) saturate(180%);
+    border: 1px solid rgba(0, 240, 255, 0.1);
+  }
+
+  .glass-panel-strong {
+    background: rgba(19, 19, 31, 0.85);
+    backdrop-filter: blur(40px) saturate(200%);
+    border: 1px solid rgba(0, 240, 255, 0.15);
+  }
+
+  .neon-glow {
+    box-shadow: 
+      0 0 5px rgba(0, 240, 255, 0.5),
+      0 0 10px rgba(0, 240, 255, 0.3),
+      0 0 20px rgba(0, 240, 255, 0.2),
+      0 0 40px rgba(0, 240, 255, 0.1);
+  }
+
+  .neon-glow-magenta {
+    box-shadow: 
+      0 0 5px rgba(255, 0, 160, 0.5),
+      0 0 10px rgba(255, 0, 160, 0.3),
+      0 0 20px rgba(255, 0, 160, 0.2);
+  }
+
+  .scanline-overlay {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .scanline-overlay::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(0, 240, 255, 0.03) 2px,
+      rgba(0, 240, 255, 0.03) 4px
+    );
+    pointer-events: none;
+    z-index: 10;
+  }
+
+  .crt-flicker {
+    animation: crt-flicker 0.15s infinite;
+  }
+
+  @keyframes crt-flicker {
+    0% { opacity: 0.97; }
+    50% { opacity: 1; }
+    100% { opacity: 0.98; }
+  }
+
+  .holographic {
+    background: linear-gradient(
+      135deg,
+      rgba(0, 240, 255, 0.1) 0%,
+      rgba(112, 0, 255, 0.1) 25%,
+      rgba(255, 0, 160, 0.1) 50%,
+      rgba(112, 0, 255, 0.1) 75%,
+      rgba(0, 240, 255, 0.1) 100%
+    );
+    background-size: 400% 400%;
+    animation: energy-flow 8s ease infinite;
+  }
+
+  .clip-corner {
+    clip-path: polygon(
+      0 10px,
+      10px 0,
+      calc(100% - 10px) 0,
+      100% 10px,
+      100% calc(100% - 10px),
+      calc(100% - 10px) 100%,
+      10px 100%,
+      0 calc(100% - 10px)
+    );
+  }
+
+  .clip-corner-lg {
+    clip-path: polygon(
+      0 20px,
+      20px 0,
+      calc(100% - 20px) 0,
+      100% 20px,
+      100% calc(100% - 20px),
+      calc(100% - 20px) 100%,
+      20px 100%,
+      0 calc(100% - 20px)
+    );
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.3);
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #00f0ff, #7000ff);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #00f0ff, #ff00a0);
+}
+
+/* Selection */
+::selection {
+  background: rgba(0, 240, 255, 0.3);
+  color: #fff;
+}
