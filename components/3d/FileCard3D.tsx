@@ -2,7 +2,7 @@
 
 import { useRef, useState } from "react";
 import { motion, AnimatePresence, useMotionValue, useSpring, useTransform } from "framer-motion";
-import { FileItem } from "@/types";
+import { FileItem } from "@/store/files";
 import { formatBytes } from "@/utils/helpers";
 import { Image, Video, Music, FileText, Archive, Code, File, Download, Trash2, Eye } from "lucide-react";
 
@@ -38,8 +38,8 @@ export function FileCard3D({ file, icon: IconOverride }: { file: FileItem; icon?
   const rotateX = useTransform(ySpring, [-0.5, 0.5], ["10deg", "-10deg"]);
   const rotateY = useTransform(xSpring, [-0.5, 0.5], ["-10deg", "10deg"]);
 
-  const Icon = IconOverride || iconMap[file.type] || File;
-  const color = colorMap[file.type] || "#00f0ff";
+  const Icon = IconOverride || (file.type ? iconMap[file.type] : null) || File;
+  const color = (file.type ? colorMap[file.type] : null) || "#00f0ff";
 
   const handleMouseMove = (e: React.MouseEvent) => {
     if (!cardRef.current) return;
@@ -101,8 +101,8 @@ export function FileCard3D({ file, icon: IconOverride }: { file: FileItem; icon?
 
         {/* File info */}
         <div className="text-center">
-          <p className="text-sm font-medium text-white truncate mb-1">{file.name}</p>
-          <p className="text-xs text-gray-500">{formatBytes(file.size)}</p>
+          <p className="text-sm font-medium text-white truncate mb-1">{file.name || file.original_filename}</p>
+          <p className="text-xs text-gray-500">{formatBytes(file.size || file.size_bytes || 0)}</p>
         </div>
 
         {/* Hover actions */}

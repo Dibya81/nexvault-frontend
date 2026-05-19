@@ -5,6 +5,7 @@ import { motion, AnimatePresence, useMotionValue, useSpring, useTransform } from
 import { useDropzone } from "react-dropzone";
 import { Upload, X, File, Zap, AlertTriangle, CheckCircle, Cloud, ArrowUp } from "lucide-react";
 import { useFilesStore } from "@/store/files";
+import { filesApi } from "@/lib/api";
 import { formatBytes } from "@/utils/helpers";
 import { NeonText } from "@/components/effects/NeonText";
 import { HologramCard } from "@/components/effects/HologramCard";
@@ -179,7 +180,7 @@ export default function UploadPage() {
     // Real backend upload
     newUploads.forEach((upload) => {
       setFiles((prev) => prev.map((f) => f.id === upload.id ? { ...f, status: "uploading" } : f));
-      filesApi.upload(upload.file, undefined, (progress) => {
+      filesApi.upload(upload.file, undefined, (progress: number) => {
         setFiles((prev) => prev.map((f) => f.id === upload.id ? { ...f, progress } : f));
       }).then((result: any) => {
         setFiles((prev) => prev.map((f) => f.id === upload.id ? { ...f, progress: 100, status: "completed" } : f));

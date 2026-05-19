@@ -239,7 +239,7 @@ function RecentFiles() {
                     </div>
                     <div className="flex-1 min-w-0">
                       <p className="text-sm font-medium text-white truncate">{file.name}</p>
-                      <p className="text-xs text-gray-500">{formatBytes(file.size)} · {formatDate(file.created_at)}</p>
+                      <p className="text-xs text-gray-500">{formatBytes(file.size || file.size_bytes || 0)} · {formatDate(file.created_at || file.upload_date)}</p>
                     </div>
                     <ChevronRight size={16} className="text-gray-600 group-hover:text-cyber-cyan transition-colors" />
                   </motion.div>
