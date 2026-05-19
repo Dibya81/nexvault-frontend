@@ -167,7 +167,8 @@ function RecentFiles() {
   const { files, viewMode, setViewMode, isLoading } = useFilesStore();
   const router = useRouter();
 
-  const getFileIcon = (type: string) => {
+  const getFileIcon = (type: string | undefined) => {
+    if (!type) return File;
     const icons: Record<string, any> = { image: Image, video: Video, audio: Music, document: FileText, archive: Archive, code: Code };
     return icons[type] || File;
   };
